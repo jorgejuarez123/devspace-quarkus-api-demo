@@ -7,6 +7,8 @@ components:
   - name: quarkus-demo-devfile
     container:
       image: quay.io/devfile/universal-developer-image:ubi8-latest
+      memoryLimit: 512Mi
+      memoryRequest: 320Mi
       env:
         - name: QUARKUS_HTTP_HOST
           value: 0.0.0.0
@@ -19,9 +21,7 @@ components:
           name: list-all-food
           protocol: http
           targetPort: 8080
-          path: /food
-      memoryLimit: 512Mi
-      memoryRequest: 320Mi
+          path: /food      
       mountSources: true
 
   - name: postgresql
