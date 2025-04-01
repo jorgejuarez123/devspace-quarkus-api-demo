@@ -4,7 +4,7 @@ metadata:
 attributes:
   controller.devfile.io/storage-type: ephemeral
 components:
-  - name: quarkus-demo-devfile
+  - name: quarkus-demo-devfile-desa
     container:
       image: quay.io/devfile/universal-developer-image:ubi8-latest
       env:
