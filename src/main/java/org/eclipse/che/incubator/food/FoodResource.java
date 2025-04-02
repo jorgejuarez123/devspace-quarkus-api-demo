@@ -47,7 +47,7 @@ public class FoodResource {
     public Response create(Food food) {
         food.persist();
         if (food.isPersistent()) {
-            return Response.created(URI.create("/food/" + food.id)).build();
+            return Response.created(URI.create("/food/" + food.id)).build(); //agregar response
         }
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
     }

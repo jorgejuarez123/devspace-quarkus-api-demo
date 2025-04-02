@@ -1,0 +1,112 @@
+{
+  "apiVersion" : "v1",
+  "kind" : "ServiceAccount",
+  "metadata" : {
+    "annotations" : {
+      "app.quarkus.io/commit-id" : "6c57cd5b2fb63ebb7c3f6636cc343a4c7b497609",
+      "app.quarkus.io/build-timestamp" : "2025-04-02 - 17:03:43 +0000"
+    },
+    "labels" : {
+      "app.kubernetes.io/version" : "1.0.0-SNAPSHOT",
+      "app.kubernetes.io/name" : "quarkus-api-example"
+    },
+    "name" : "quarkus-api-example"
+  }
+}{
+  "apiVersion" : "v1",
+  "kind" : "Service",
+  "metadata" : {
+    "annotations" : {
+      "app.quarkus.io/commit-id" : "6c57cd5b2fb63ebb7c3f6636cc343a4c7b497609",
+      "app.quarkus.io/build-timestamp" : "2025-04-02 - 17:03:43 +0000"
+    },
+    "labels" : {
+      "app.kubernetes.io/name" : "quarkus-api-example",
+      "app.kubernetes.io/version" : "1.0.0-SNAPSHOT"
+    },
+    "name" : "quarkus-api-example"
+  },
+  "spec" : {
+    "ports" : [ {
+      "name" : "http",
+      "port" : 80,
+      "targetPort" : 8080
+    } ],
+    "selector" : {
+      "app.kubernetes.io/name" : "quarkus-api-example",
+      "app.kubernetes.io/version" : "1.0.0-SNAPSHOT"
+    },
+    "type" : "ClusterIP"
+  }
+}{
+  "apiVersion" : "rbac.authorization.k8s.io/v1",
+  "kind" : "RoleBinding",
+  "metadata" : {
+    "name" : "quarkus-api-example-view"
+  },
+  "roleRef" : {
+    "kind" : "ClusterRole",
+    "apiGroup" : "rbac.authorization.k8s.io",
+    "name" : "view"
+  },
+  "subjects" : [ {
+    "kind" : "ServiceAccount",
+    "name" : "quarkus-api-example"
+  } ]
+}{
+  "apiVersion" : "apps/v1",
+  "kind" : "Deployment",
+  "metadata" : {
+    "annotations" : {
+      "app.quarkus.io/commit-id" : "6c57cd5b2fb63ebb7c3f6636cc343a4c7b497609",
+      "app.quarkus.io/build-timestamp" : "2025-04-02 - 17:03:43 +0000"
+    },
+    "labels" : {
+      "app.kubernetes.io/version" : "1.0.0-SNAPSHOT",
+      "app.kubernetes.io/name" : "quarkus-api-example"
+    },
+    "name" : "quarkus-api-example"
+  },
+  "spec" : {
+    "replicas" : 1,
+    "selector" : {
+      "matchLabels" : {
+        "app.kubernetes.io/version" : "1.0.0-SNAPSHOT",
+        "app.kubernetes.io/name" : "quarkus-api-example"
+      }
+    },
+    "template" : {
+      "metadata" : {
+        "annotations" : {
+          "app.quarkus.io/commit-id" : "6c57cd5b2fb63ebb7c3f6636cc343a4c7b497609",
+          "app.quarkus.io/build-timestamp" : "2025-04-02 - 17:03:43 +0000"
+        },
+        "labels" : {
+          "app.kubernetes.io/version" : "1.0.0-SNAPSHOT",
+          "app.kubernetes.io/name" : "quarkus-api-example"
+        }
+      },
+      "spec" : {
+        "containers" : [ {
+          "env" : [ {
+            "name" : "KUBERNETES_NAMESPACE",
+            "valueFrom" : {
+              "fieldRef" : {
+                "fieldPath" : "metadata.namespace"
+              }
+            }
+          } ],
+          "image" : "image-registry.openshift-image-registry.svc:5000/openshift/quarkus-api-example:latest",
+          "imagePullPolicy" : "Always",
+          "name" : "quarkus-api-example",
+          "ports" : [ {
+            "containerPort" : 8080,
+            "name" : "http",
+            "protocol" : "TCP"
+          } ]
+        } ],
+        "serviceAccountName" : "quarkus-api-example"
+      }
+    }
+  }
+}
