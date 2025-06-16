@@ -2,20 +2,12 @@ metadata:
   generateName: devfile-quarkus-api-demo
 attributes:
   controller.devfile.io/storage-type: ephemeral
-  controller.devfile.io/pod-overrides: |
-    {
-      "spec": {
-        "imagePullSecrets": [
-          {
-            "name": "quay-credentials"
-          }
-        ]
-      }
-    }
 components:
   - name: quarkus-api-demo
     container:
       image: quay-registry-quay-quay-enterprise.apps.gcp-op-desa.cloud.mh.gob.sv/devspaces/java21-base:1.0.0
+      imagePullSecrets:
+          - name: quay-credentials
       env:
         - name: QUARKUS_HTTP_HOST
           value: 0.0.0.0
