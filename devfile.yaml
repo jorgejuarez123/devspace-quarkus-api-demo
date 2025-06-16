@@ -5,23 +5,21 @@ attributes:
   controller.devfile.io/storage-type: ephemeral
 components:
   - name: quarkus-api-demo
-    type: dockerimage
-    image: quay-registry-quay-quay-enterprise.apps.gcp-op-desa.cloud.mh.gob.sv/devspaces/java21-base:1.0.0
-    imagePullSecrets:
-        - name: quay-credentials
-    env:
-      - name: QUARKUS_HTTP_HOST
-        value: 0.0.0.0
-    endpoints:
-      - exposure: none
-        name: debug
-        protocol: tcp
-        targetPort: 5005 
-      - exposure: public
-        name: list-all-food
-        protocol: http
-        targetPort: 8080
-        path: /food      
+    container:
+      image: quay-registry-quay-quay-enterprise.apps.gcp-op-desa.cloud.mh.gob.sv/devspaces/java21-base:1.0.0
+      env:
+        - name: QUARKUS_HTTP_HOST
+          value: 0.0.0.0
+      endpoints:
+        - exposure: none
+          name: debug
+          protocol: tcp
+          targetPort: 5005 
+        - exposure: public
+          name: list-all-food
+          protocol: http
+          targetPort: 8080
+          path: /food      
     mountSources: true
   - name: postgresql
     container:
