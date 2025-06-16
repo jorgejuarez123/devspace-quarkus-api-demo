@@ -1,3 +1,4 @@
+schemaVersion: 2.1.0
 metadata:
   generateName: devfile-quarkus-api-demo
 attributes:
