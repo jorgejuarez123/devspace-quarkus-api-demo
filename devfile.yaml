@@ -2,6 +2,16 @@ metadata:
   generateName: devfile-quarkus-api-demo
 attributes:
   controller.devfile.io/storage-type: ephemeral
+  controller.devfile.io/pod-overrides: |
+    {
+      "spec": {
+        "imagePullSecrets": [
+          {
+            "name": "quay-credentials"
+          }
+        ]
+      }
+    }
 components:
   - name: quarkus-api-demo
     container:
@@ -20,18 +30,6 @@ components:
           targetPort: 8080
           path: /food      
       mountSources: true
-attributes:
-  controller.devfile.io/pod-overrides: |
-    {
-      "spec": {
-        "imagePullSecrets": [
-          {
-            "name": "quay-credentials"
-          }
-        ]
-      }
-    }
-
   - name: postgresql
     container:
       image: 'quay.io/centos7/postgresql-13-centos7:lastest'
