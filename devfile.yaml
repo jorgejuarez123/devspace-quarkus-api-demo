@@ -20,6 +20,17 @@ components:
           targetPort: 8080
           path: /food      
       mountSources: true
+attributes:
+  controller.devfile.io/pod-overrides: |
+    {
+      "spec": {
+        "imagePullSecrets": [
+          {
+            "name": "quay-credentials"
+          }
+        ]
+      }
+    }
 
   - name: postgresql
     container:
